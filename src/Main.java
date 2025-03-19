@@ -4,5 +4,6 @@ public class Main{
         handleOrders.takeOrder();
         handleOrders.createOrderSummary();
         System.out.println(handleOrders);
+        handleOrders.displayCustomPizzas();
     }
 }

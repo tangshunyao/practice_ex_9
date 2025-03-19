@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HandleOrders {
@@ -13,6 +14,9 @@ public class HandleOrders {
     StringBuilder pizzaOrderSummary = new StringBuilder();
 
     Scanner input = new Scanner(System.in);
+
+    
+    private ArrayList<CustomPizza> customPizzas = new ArrayList<>();
 
     public void takeOrder(){
         String orderAnother = "Y";
@@ -78,6 +82,8 @@ public class HandleOrders {
                 }
             } else if (choice == 6){
                 double customPizzaPrice = 0;
+
+                StringBuilder customPizzaToppings = new StringBuilder();
                 
                 System.out.println("For your custom pizza, here are the toppings:");
                 int k = 1;
@@ -98,12 +104,16 @@ public class HandleOrders {
                         break;
                     }
                     customPizza.append(PizzaToppings.values()[toppingChoice-1].getTopping() + ", ");
+                    customPizzaToppings.append(PizzaToppings.values()[toppingChoice-1].getTopping() + ", ");
                     customPizzaPrice += PizzaToppings.values()[toppingChoice-1].getToppingPrice();
                     l++;
                 }while(l!=10 || l!=0);
                 
                 customPizzaPrice += PIZZA_BASE_PRICE;
                 
+                CustomPizza newCustomPizza = new CustomPizza(customPizzaToppings.toString(), customPizzaPrice);
+                customPizzas.add(newCustomPizza);
+
                 customPizza.append(": €" + customPizzaPrice);
 
                 pizzasOrdered[j] = customPizza.toString();
@@ -189,5 +199,11 @@ public class HandleOrders {
         
         return pizzaOrderSummary.toString();
     }
-    
+
+    public void displayCustomPizzas(){
+        for (CustomPizza toppings: customPizzas ) {
+            System.out.println(toppings);
+        }
+    }
 }
+
